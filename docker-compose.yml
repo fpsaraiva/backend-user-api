@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=ecommerce
+    volumes:
+      - postgres_data:/bitnami/postgresql
+    container_name: "bd-postgres-ecommerce-api"
+
+  pgadmin4:
+    image: 'dpage/pgadmin4:latest'
+    container_name: "pgadmin4-ecommerce-api"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 8082:80
+
+volumes:
+  postgres_data:
