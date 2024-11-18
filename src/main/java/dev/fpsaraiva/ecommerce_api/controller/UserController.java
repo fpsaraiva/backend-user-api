@@ -20,11 +20,6 @@ public class UserController {
         return users;
     }
 
-    @PostMapping("/user/")
-    public UserDto create(@Valid @RequestBody UserDto userDto) {
-        return userService.save(userDto);
-    }
-
     @DeleteMapping("/user/{id}")
     public UserDto delete(@PathVariable long id) {
         return userService.delete(id);

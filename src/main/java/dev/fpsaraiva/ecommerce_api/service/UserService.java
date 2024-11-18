@@ -24,11 +24,6 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto save(UserDto userDto) {
-        User user = userRepository.save(User.toModel(userDto));
-        return UserDto.toDto(user);
-    }
-
     public UserDto delete(long userId) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
