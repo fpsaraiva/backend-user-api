@@ -16,6 +16,16 @@ public class ProductDto {
     @Min(value = 0, message = "A quantidade não pode ser negativa.")
     private int stockQuantity;
 
+    public ProductDto() {
+    }
+
+    public ProductDto(String sku, String name, float price, int stockQuantity) {
+        this.sku = sku;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     public String getSku() {
         return sku;
     }

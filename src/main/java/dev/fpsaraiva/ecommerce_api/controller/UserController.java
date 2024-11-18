@@ -2,6 +2,7 @@ package dev.fpsaraiva.ecommerce_api.controller;
 
 import dev.fpsaraiva.ecommerce_api.dto.UserDto;
 import dev.fpsaraiva.ecommerce_api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class UserController {
         return users;
     }
 
-    @PostMapping
-    public UserDto create(@RequestBody UserDto userDto) {
+    @PostMapping("/user/")
+    public UserDto create(@Valid @RequestBody UserDto userDto) {
         return userService.save(userDto);
     }
 
