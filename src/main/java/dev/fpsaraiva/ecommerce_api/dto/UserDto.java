@@ -45,8 +45,8 @@ public class UserDto {
 
     public static UserDto toDto(User user) {
         UserDto userDto = new UserDto();
-        userDto.setName(userDto.getName());
-        userDto.setEmail(userDto.getPassword());
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setCreatedAt(user.getCreatedAt());
         return userDto;
