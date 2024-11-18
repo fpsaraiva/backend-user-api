@@ -1,13 +1,18 @@
 package dev.fpsaraiva.ecommerce_api.dto;
 
 import dev.fpsaraiva.ecommerce_api.model.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
 
 public class UserDto {
 
+    @NotBlank
     private String name;
+    @Email
     private String email;
+    @NotBlank
     private String password;
     private Date createdAt;
 
