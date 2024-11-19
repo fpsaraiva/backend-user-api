@@ -4,8 +4,10 @@ import dev.fpsaraiva.ecommerce_api.auth.TokenService;
 import dev.fpsaraiva.ecommerce_api.dto.LoginRequestDto;
 import dev.fpsaraiva.ecommerce_api.dto.RegisterRequestDto;
 import dev.fpsaraiva.ecommerce_api.dto.ResponseDto;
+import dev.fpsaraiva.ecommerce_api.exceptions.EmailAlreadyExistsException;
 import dev.fpsaraiva.ecommerce_api.model.User;
 import dev.fpsaraiva.ecommerce_api.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,19 +39,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDto registerRequestDto){
+    public ResponseEntity register(@Valid @RequestBody RegisterRequestDto registerRequestDto){
         Optional<User> user = this.repository.findByEmail(registerRequestDto.email());
 
-        if(user.isEmpty()) {
-            User newUser = new User();
-            newUser.setPassword(passwordEncoder.encode(registerRequestDto.password()));
-            newUser.setEmail(registerRequestDto.email());
-            newUser.setName(registerRequestDto.name());
-            this.repository.save(newUser);
-
-            String token = this.tokenService.generateToken(newUser);
-            return ResponseEntity.ok(new ResponseDto(newUser.getName(), token));
+        if(!user.isEmpty()) {
+            throw new EmailAlreadyExistsException("User already registered using email '" + registerRequestDto.email() + "'.");
         }
-        return ResponseEntity.badRequest().build();
+
+        User newUser = new User();
+        newUser.setPassword(passwordEncoder.encode(registerRequestDto.password()));
+        newUser.setEmail(registerRequestDto.email());
+        newUser.setName(registerRequestDto.name());
+        this.repository.save(newUser);
+
+        String token = this.tokenService.generateToken(newUser);
+        return ResponseEntity.ok(new ResponseDto(newUser.getName(), token));
     }
 }
