@@ -6,25 +6,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.Date;
+import java.util.UUID;
 
 @Entity(name = "product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String sku;
     private String name;
     private float price;
     private int stockQuantity;
-    private Date createdAt;
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -60,20 +59,12 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public static Product toModel(ProductDto productDto) {
         Product product = new Product();
-        product.setSku(productDto.getSku());
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        product.setStockQuantity(productDto.getStockQuantity());
+        product.setSku(productDto.sku());
+        product.setName(productDto.name());
+        product.setPrice(productDto.price());
+        product.setStockQuantity(productDto.stockQuantity());
         return product;
     }
 }
