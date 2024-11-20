@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 public record ShoppingCartDto(
+        UUID cartId,
         @NotBlank UUID userId,
         List<CartItemDto> products
         ) {
     public static ShoppingCartDto toDto(ShoppingCart shoppingCart) {
         return new ShoppingCartDto(
+                shoppingCart.getId(),
                 shoppingCart.getUser().getId(),
                 shoppingCart.getProducts().stream()
                         .map(CartItemDto::toDto)
