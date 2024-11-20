@@ -6,11 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    Page<Product> findByStockQuantityGreaterThan(int stockQuantity, Pageable pageable);
+import java.util.UUID;
 
-    Product findBySku(String sku);
+@Repository
+public interface ProductRepository extends JpaRepository<Product, UUID> {
+    Page<Product> findByStockQuantityGreaterThan(int stockQuantity, Pageable pageable);
 
     boolean existsBySku(String sku);
 }

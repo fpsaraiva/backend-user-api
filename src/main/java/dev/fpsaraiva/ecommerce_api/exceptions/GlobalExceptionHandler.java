@@ -13,6 +13,13 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> handleResourceNotFound(ResourceNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
     @ExceptionHandler(DuplicateSkuException.class)
     public ResponseEntity<Map<String, String>> handleDuplicateSkuException(DuplicateSkuException ex) {
         Map<String, String> error = new HashMap<>();

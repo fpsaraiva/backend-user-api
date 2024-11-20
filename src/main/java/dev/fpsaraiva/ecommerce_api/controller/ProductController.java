@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 public class ProductController {
 
@@ -24,13 +26,14 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public ProductDto create(@Valid @RequestBody ProductDto productDto) {
-        return productService.save(productDto);
+    public ProductDto createProduct(@Valid @RequestBody ProductDto productDto) {
+        return productService.createProduct(productDto);
     }
 
-    @PutMapping("/product/update")
-    public ProductDto update(@RequestParam(name = "sku", required = true) String sku,
-                             ProductDto productDto) {
-        return productService.update(sku, productDto);
+    @PutMapping("/product/{id}")
+    public ProductDto updateProduct(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductDto productDto) {
+        return productService.updateProduct(id, productDto);
     }
 }
