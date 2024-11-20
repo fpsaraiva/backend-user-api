@@ -18,7 +18,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Page<ProductDto> getAll(Pageable pageable) {
+    public Page<ProductDto> listProducts(Pageable pageable) {
         Page<Product> productsPage = productRepository.findByStockQuantityGreaterThan(0, pageable);
         return productsPage
                 .map(product -> new ProductDto(
