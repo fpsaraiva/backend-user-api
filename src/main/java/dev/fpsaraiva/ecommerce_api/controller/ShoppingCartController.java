@@ -32,4 +32,12 @@ public class ShoppingCartController {
         ShoppingCartDto updatedCart = shoppingCartService.updateCart(cartId, cartItemDtos);
         return ResponseEntity.ok(updatedCart);
     }
+
+    @GetMapping("/{cartId}")
+    public ResponseEntity<ShoppingCartDto> getCart(
+            @PathVariable UUID cartId
+    ) {
+        ShoppingCartDto shoppingCartDto = shoppingCartService.getShoppingCartById(cartId);
+        return ResponseEntity.ok(shoppingCartDto);
+    }
 }

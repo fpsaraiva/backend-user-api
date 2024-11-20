@@ -74,4 +74,16 @@ public class ShoppingCartService {
         return ShoppingCartDto.toDto(updatedCart);
     }
 
+    public ShoppingCartDto getShoppingCartById(UUID cartId) {
+        UUID authenticatedUserId = authService.getAuthenticatedUser().getId();
+
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(cartId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart not found."));
+
+        if (!shoppingCart.getUser().getId().equals(authenticatedUserId)) {
+            throw new UnauthorizedAccessException("Logged user is not authorized to view this cart.");
+        }
+
+        return ShoppingCartDto.toDto(shoppingCart);
+    }
 }
