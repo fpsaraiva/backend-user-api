@@ -8,6 +8,8 @@ import dev.fpsaraiva.ecommerce_api.exceptions.EmailAlreadyExistsException;
 import dev.fpsaraiva.ecommerce_api.model.User;
 import dev.fpsaraiva.ecommerce_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +50,23 @@ public class AuthService {
 
         String token = tokenService.generateToken(newUser);
         return new AuthResponseDto(newUser.getName(), token);
+    }
+
+    public User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User is not authenticated");
+        }
+
+        Object details = authentication.getPrincipal();
+
+        if (details instanceof User) {
+            String email = ((User) details).getEmail();
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("Authenticated user not found"));
+        }
+
+        throw new RuntimeException("Unexpected principal type: ");
     }
 }
