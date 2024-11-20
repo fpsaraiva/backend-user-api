@@ -1,4 +1,4 @@
-package dev.fpsaraiva.ecommerce_api.auth;
+package dev.fpsaraiva.ecommerce_api.infra.auth;
 
 import dev.fpsaraiva.ecommerce_api.model.User;
 import dev.fpsaraiva.ecommerce_api.repository.UserRepository;

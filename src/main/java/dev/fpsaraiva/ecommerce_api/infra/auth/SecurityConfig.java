@@ -1,4 +1,4 @@
-package dev.fpsaraiva.ecommerce_api.auth;
+package dev.fpsaraiva.ecommerce_api.infra.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

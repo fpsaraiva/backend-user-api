@@ -1,6 +1,6 @@
 package dev.fpsaraiva.ecommerce_api.service;
 
-import dev.fpsaraiva.ecommerce_api.auth.TokenService;
+import dev.fpsaraiva.ecommerce_api.infra.auth.TokenService;
 import dev.fpsaraiva.ecommerce_api.dto.AuthResponseDto;
 import dev.fpsaraiva.ecommerce_api.dto.LoginRequestDto;
 import dev.fpsaraiva.ecommerce_api.dto.RegisterRequestDto;

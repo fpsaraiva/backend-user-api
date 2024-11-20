@@ -1,4 +1,4 @@
-package dev.fpsaraiva.ecommerce_api.auth;
+package dev.fpsaraiva.ecommerce_api.infra.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
