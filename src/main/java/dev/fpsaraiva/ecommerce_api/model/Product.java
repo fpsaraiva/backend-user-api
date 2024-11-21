@@ -19,6 +19,16 @@ public class Product {
     private float price;
     private int stockQuantity;
 
+    public Product() {
+    }
+
+    public Product(String sku, String name, float price, int stockQuantity) {
+        this.sku = sku;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     public UUID getId() {
         return id;
     }
